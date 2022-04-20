@@ -14,7 +14,7 @@ public class Celsius implements Temperatura{
     public Celsius(){ }  
   
     public double getValue(){   
-       return value;  
+       return this.value;
     }  
   
     public void setValue(double value) throws TempException{  
