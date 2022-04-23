@@ -2,9 +2,9 @@ package fila;
 
 public class Fila implements IFila {
 
-	private static final int capacidade = 5;
+	private static final int capacidade = 5; // capacidade total da fila
 	private Object[] Fila;  //Array que representa a fila
-	private final int tam; // capacidade total da fila
+	private int tam; 
 	private int fim = -1; //final da fila
 
 	public int getFim() {
@@ -33,7 +33,7 @@ public class Fila implements IFila {
 	}
 
 	public int tamanho() {
-		return fim;
+		return fim+1;
 	}
 
 	public boolean estaVazia() {
@@ -45,14 +45,23 @@ public class Fila implements IFila {
 	}
 
 	public void insereNaFila(Object obj) throws FilaCheiaException {
+		if(fim+1 == capacidade) {
+			throw new FilaCheiaException("Fila cheia");
+		}
 		fim++;
 		Fila[fim] = obj;
 	}
 
 	public Object removeDaFila() throws FilaVaziaException {
-		Object item = Fila[fim];
-		for(int k = 1; k < fim; k++)
+		if(fim == -1) {
+			throw new FilaVaziaException("Fila vazia");
+		}
+		Object item = Fila[0];
+		for(int k = 1; k <= fim; k++) {
 			Fila[k-1] = Fila[k];
+		}
+		Fila[fim]=null;
+		fim--;
 		return item;
 	}
 

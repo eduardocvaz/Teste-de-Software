@@ -1,6 +1,8 @@
 package temperature;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+
 
 @RunWith(Parameterized.class)
 public class ConversorTemperaturaTest {
@@ -55,7 +58,40 @@ public class ConversorTemperaturaTest {
 		assertEquals(esperadoF, ConversorTemperatura.converte(fahrenheit).getValue(), 0.1);
 	}
 
+	@Test
+	public void testCelciusZeroAbsoluto() throws TempException {
+		try {
+			celcius.setValue(-300);
+			
+			fail("Deveria falhar adicionar uma temperatura a baixo do zero absoluto");
+		} catch (TempException e) {
+			  var expectedException =
+			      assertThrows(
+			    		  TempException.class,
+			          () -> {
+			            throw new TempException("N�o existe temperatura abaixo do zero absoluto");
+			          });
+			  assertEquals(e.getMessage(), expectedException.getMessage());
+		}
+	}
 
+	
+	@Test
+	public void testFahrenheitZeroAbsoluto() throws TempException {
+		try {
+			fahrenheit.setValue(-500);
+			
+			fail("Deveria falhar adicionar uma temperatura a baixo do zero absoluto");
+		} catch (TempException e) {
+			  var expectedException =
+			      assertThrows(
+			    		  TempException.class,
+			          () -> {
+			            throw new TempException("Não existe temperatura abaixo do zero absoluto");
+			          });
+			  assertEquals(e.getMessage(), expectedException.getMessage());
+		}
+	}
 
 
 }
