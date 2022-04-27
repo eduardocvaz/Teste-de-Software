@@ -98,7 +98,7 @@ public class PessoaDAO implements GenericoDAO<PessoaDTO> {
 		try {
 			
 			int n_size = banco.size();
-			int posicao = -1;
+			int posicao = 0;
 			for(int i = 0; i < n_size; i++) {
 				if(banco.get(i).getIdPessoa().equals(idPessoa)) {
 					posicao = i;
